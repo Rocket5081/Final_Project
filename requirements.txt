@@ -1,0 +1,9 @@
+Libraries required:
+
+tkinter
+pandas
+scipy
+matplotlib
+numpy
+LibRosa
+pydub
