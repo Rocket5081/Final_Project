@@ -16,4 +16,6 @@ By using our program, we wj,, be able seamlessesly import, clean, visualize, ana
 enclosed spaces
 
 ## Instructions
-(Will update)
+When the program is ran a window will appear with the button option to input your wav. file
+then you can select three button options to select between three radio frequencies being high medium, and low.
+And the button to display the frequency after you have chosen.
