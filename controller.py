@@ -1,30 +1,20 @@
-from view import FilePlotterApp
-from model import SoundAnalyzerModel
+from pydub import AudioSegment
+import os
+from scipy.io import wavfile
 
-class SoundAnalyzerController:
-    def __init__(self, app, model):
-        self.app = app
-        self.model = model
+class AudioController:
+    @staticmethod
+    def process_audio(input_file_path):
+        try:
+            # Load audio file
+            audio = AudioSegment.from_file(input_file_path)
 
-        # Bind functions to GUI events
-        self.app.generate_button.config(command=self.plot_data)
+            # Convert to WAV, reduce channels to 1, and strip metadata
+            mono_wav = audio.set_channels(1)
+            output_file_path = "tempaudio.wav"
+            mono_wav.export(output_file_path, format="wav")
 
-    def plot_data(self):
-        # Get data from the GUI
-        file_path = self.app.file_path
-        plot_type = self.app.plot_type.get()
+            return output_file_path
 
-        # Pass data to the model for processing
-        self.model.process_data(file_path, plot_type)
-
-if __name__ == "__main__":
-    # Create instances of the model and view
-    model = SoundAnalyzerModel()
-    root = tk.Tk()
-    app = FilePlotterApp(root)
-
-    # Create an instance of the controller and pass the view and model
-    controller = SoundAnalyzerController(app, model)
-
-    # Run the Tkinter event loop
-    root.mainloop()
+        except Exception as e:
+            raise RuntimeError(f"An error occurred: {str(e)}")
