@@ -14,6 +14,13 @@ class AudioView:
 
         self.create_widgets()
 
+        # Labels for displaying results
+        self.resonance_label = tk.Label(self.root, text="Highest Resonance Frequency:")
+        self.resonance_label.grid(row=3, column=0, columnspan=2, pady=10)
+
+        self.time_label = tk.Label(self.root, text="Time Values:")
+        self.time_label.grid(row=3, column=2, columnspan=2, pady=10)
+
     def create_widgets(self):
         # File Upload
         file_label = tk.Label(self.root, text="Select Audio File:")
@@ -46,6 +53,22 @@ class AudioView:
     def browse_audio_file(self):
         self.input_audio_file_path = filedialog.askopenfilename(filetypes=[("Audio files", "*.*")])
 
+        if self.input_audio_file_path:
+            try:
+                # Pass the audio file path to the AudioModel constructor
+                self.model = AudioModel(self.input_audio_file_path)
+
+                # Compute and display the highest resonance frequency
+                resonance_frequency = self.model.compute_highest_resonance_frequency()
+                self.resonance_label.config(text=f"Highest Resonance Frequency: {resonance_frequency:.2f} Hz")
+
+                # Display time values
+                time_values = self.model.get_time_values()
+                self.time_label.config(text=f"Time Values: {time_values} seconds")
+
+            except Exception as e:
+                messagebox.showerror("Error", str(e))
+
     def spectrogram_plot(self):
         if not self.input_audio_file_path:
             messagebox.showwarning("Warning", "Please select an audio file.")
@@ -56,7 +79,7 @@ class AudioView:
             self.model = AudioModel(self.input_audio_file_path)
 
             # Plot the spectrogram
-            self.model.plot_spectogram(self.frequency_band.get())
+            self.model.plot_spectrogram(self.frequency_band.get())
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
