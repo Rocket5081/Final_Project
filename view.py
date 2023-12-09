@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 from model import AudioModel
 from controller import AudioController
 
+
 class AudioView:
     def __init__(self, root):
         self.root = root
@@ -42,6 +43,10 @@ class AudioView:
         low_freq_radio = tk.Radiobutton(self.root, text="Low", variable=self.frequency_band, value="low")
         low_freq_radio.grid(row=1, column=3, pady=10)
 
+        # All frequency option
+        all_freq_radio = tk.Radiobutton(self.root, text="All", variable=self.frequency_band, value="all")
+        all_freq_radio.grid(row=1, column=4, pady=10)
+
         # Process and Plot Button for Spectrogram
         process_button = tk.Button(self.root, text="Plot Spectrogram", command=self.spectrogram_plot)
         process_button.grid(row=2, column=0, columnspan=2, pady=10)
@@ -55,8 +60,11 @@ class AudioView:
 
         if self.input_audio_file_path:
             try:
-                # Pass the audio file path to the AudioModel constructor
-                self.model = AudioModel(self.input_audio_file_path)
+                # Process the audio file using the controller
+                processed_file_path = self.controller.process_audio(self.input_audio_file_path)
+
+                # Pass the processed audio file path to the AudioModel constructor
+                self.model = AudioModel(processed_file_path)
 
                 # Compute and display the highest resonance frequency
                 resonance_frequency = self.model.compute_highest_resonance_frequency()
@@ -75,8 +83,11 @@ class AudioView:
             return
 
         try:
-            # Pass the audio file path and selected frequency to the AudioModel constructor
-            self.model = AudioModel(self.input_audio_file_path)
+            # Process the audio file using the controller
+            processed_file_path = self.controller.process_audio(self.input_audio_file_path)
+
+            # Pass the processed audio file path and selected frequency to the AudioModel constructor
+            self.model = AudioModel(processed_file_path)
 
             # Plot the spectrogram
             self.model.plot_spectrogram(self.frequency_band.get())
@@ -90,8 +101,11 @@ class AudioView:
             return
 
         try:
-            # Pass the audio file path to the AudioModel constructor
-            self.model = AudioModel(self.input_audio_file_path)
+            # Process the audio file using the controller
+            processed_file_path = self.controller.process_audio(self.input_audio_file_path)
+
+            # Pass the processed audio file path to the AudioModel constructor
+            self.model = AudioModel(processed_file_path)
 
             # Plot the waveform
             self.model.plot_waveform_simple()
