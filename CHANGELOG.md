@@ -1,5 +1,11 @@
 Change Logs: 
 
+commit 73dc498765d8bb12cd8b57a9fb9f1aa6e9cea21d (HEAD -> dev, origin/dev)
+Author: chandler mullin <chandlermullin12@gmail.com>
+Date:   Mon Dec 11 00:14:20 2023 -0500
+
+    Update to view and model for minor additons and fixes
+
 commit 904d087e679a92afae4f4058dc61c184413e4639 (HEAD -> dev, origin/dev)
 Author: Khalee242 <151599422+Khalee242@users.noreply.github.com>
 Date:   Sun Dec 10 23:02:10 2023 -0500
