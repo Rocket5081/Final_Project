@@ -1,4 +1,9 @@
 from pydub import AudioSegment
+from pydub.playback import _play_with_ffplay
+
+# Set the path to FFmpeg executable
+AudioSegment.converter = "C:/Users/ffmpeg/bin/ffmpeg.exe"
+_play_with_ffplay.converter = "C:/Users/ffmpeg/bin/ffmpeg.exe"
 
 class AudioController:
     @staticmethod
