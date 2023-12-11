@@ -1,5 +1,41 @@
 Change Logs: 
 
+commit 904d087e679a92afae4f4058dc61c184413e4639 (HEAD -> dev, origin/dev)
+Author: Khalee242 <151599422+Khalee242@users.noreply.github.com>
+Date:   Sun Dec 10 23:02:10 2023 -0500
+
+    Update model.py for compute highest resonance and time
+
+commit ae5c77d71882c202ce0426009ef78d57062899f1
+Author: Khalee242 <151599422+Khalee242@users.noreply.github.com>
+Date:   Sun Dec 10 22:49:50 2023 -0500
+
+    Update CHANGELOG.md
+
+commit f4f612a7af782b43a3f34c9a054fdf136951bd00
+Author: Joseph Williams <89496887+coolguy761@users.noreply.github.com>
+Date:   Sun Dec 10 22:30:33 2023 -0500
+
+    final Update controller.py
+
+commit 6b4cb8dec06e142e8b8e0c2673f7629466ff3917
+Author: Joseph Williams <89496887+coolguy761@users.noreply.github.com>
+Date:   Sun Dec 10 22:13:49 2023 -0500
+
+    Create setup.cfg
+
+commit f8985d8d7bd2add60e02d2df1fcb9ea3dfcb2d96
+Author: Joseph Williams <89496887+coolguy761@users.noreply.github.com>
+Date:   Fri Dec 8 23:04:27 2023 -0500
+
+    Updated controller.py
+
+commit 34ab30f37603068e387bc605d9b5e306ddeca4ba
+Author: Chandler Mullin <150944417+Rocket5081@users.noreply.github.com>
+Date:   Fri Dec 8 21:37:22 2023 -0500
+
+    Update view.py - Added button for merge and additional features
+
 commit af0e9e01eaa5b206d8a1fa2b09f49cadcc2c7c77 (HEAD -> dev, origin/dev)
 Author: Chandler Mullin <150944417+Rocket5081@users.noreply.github.com>
 Date:   Thu Dec 7 17:48:45 2023 -0500

@@ -3,7 +3,6 @@ from tkinter import filedialog, messagebox
 from model import AudioModel
 from controller import AudioController
 
-
 class AudioView:
     def __init__(self, root):
         self.root = root
@@ -13,14 +12,14 @@ class AudioView:
         self.frequency_band = tk.StringVar()
         self.controller = AudioController()
 
-        self.create_widgets()
-
         # Labels for displaying results
         self.resonance_label = tk.Label(self.root, text="Highest Resonance Frequency:")
         self.resonance_label.grid(row=3, column=0, columnspan=2, pady=10)
 
         self.time_label = tk.Label(self.root, text="Time Values:")
         self.time_label.grid(row=3, column=2, columnspan=2, pady=10)
+
+        self.create_widgets()
 
     def create_widgets(self):
         # File Upload
@@ -34,18 +33,13 @@ class AudioView:
         freq_label = tk.Label(self.root, text="Select Frequency Band:")
         freq_label.grid(row=1, column=0, pady=10)
 
-        high_freq_radio = tk.Radiobutton(self.root, text="High", variable=self.frequency_band, value="high")
-        high_freq_radio.grid(row=1, column=1, pady=10)
+        # Creating a list of frequency bands for better readability
+        frequency_bands = ["High", "Mid", "Low", "All"]
 
-        mid_freq_radio = tk.Radiobutton(self.root, text="Mid", variable=self.frequency_band, value="mid")
-        mid_freq_radio.grid(row=1, column=2, pady=10)
-
-        low_freq_radio = tk.Radiobutton(self.root, text="Low", variable=self.frequency_band, value="low")
-        low_freq_radio.grid(row=1, column=3, pady=10)
-
-        # All frequency option
-        all_freq_radio = tk.Radiobutton(self.root, text="All", variable=self.frequency_band, value="all")
-        all_freq_radio.grid(row=1, column=4, pady=10)
+        # Using a loop to create radio buttons
+        for i, band in enumerate(frequency_bands):
+            freq_radio = tk.Radiobutton(self.root, text=band, variable=self.frequency_band, value=band.lower())
+            freq_radio.grid(row=1, column=i + 1, pady=10)
 
         # Process and Plot Button for Spectrogram
         process_button = tk.Button(self.root, text="Plot Spectrogram", command=self.spectrogram_plot)
@@ -54,6 +48,14 @@ class AudioView:
         # Process and Plot Button for Waveform
         waveform_button = tk.Button(self.root, text="Plot Waveform", command=self.waveform_plot)
         waveform_button.grid(row=2, column=2, columnspan=2, pady=10)
+
+        # Display RT60 information
+        rt60_label = tk.Label(self.root, text="RT60 Values:")
+        rt60_label.grid(row=6, column=0, columnspan=4, pady=10)
+
+        self.rt60_var = tk.StringVar()
+        rt60_entry = tk.Entry(self.root, textvariable=self.rt60_var, state='readonly', width=60)
+        rt60_entry.grid(row=7, column=0, columnspan=4, pady=10)
 
     def browse_audio_file(self):
         self.input_audio_file_path = filedialog.askopenfilename(filetypes=[("Audio files", "*.*")])
@@ -74,6 +76,14 @@ class AudioView:
                 time_values = self.model.get_time_values()
                 self.time_label.config(text=f"Time Values: {time_values} seconds")
 
+                # Set the frequency_band before calling plot_spectrogram
+                self.frequency_band.set("all")  # Set to your desired default frequency band
+                self.spectrogram_plot()  # Call plot_spectrogram immediately after setting frequency_band
+
+                # Display RT60 values
+                rt60_values = self.model.compute_combined_rt60()
+                self.rt60_var.set(f"RT60 Values: {', '.join(map(lambda x: f'{x:.2f}', rt60_values))} seconds")
+
             except Exception as e:
                 messagebox.showerror("Error", str(e))
 
@@ -89,11 +99,11 @@ class AudioView:
             # Pass the processed audio file path and selected frequency to the AudioModel constructor
             self.model = AudioModel(processed_file_path)
 
-            # Plot the spectrogram
+            # Plot the spectrogram using the current frequency_band
             self.model.plot_spectrogram(self.frequency_band.get())
 
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
     def waveform_plot(self):
         if not self.input_audio_file_path:
@@ -111,4 +121,5 @@ class AudioView:
             self.model.plot_waveform_simple()
 
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error", f"An error occurred: {str(e)}")
+
