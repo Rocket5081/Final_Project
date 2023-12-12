@@ -81,8 +81,8 @@ class AudioView:
                 self.spectrogram_plot()  # Call plot_spectrogram immediately after setting frequency_band
 
                 # Display RT60 values
-                rt60_values = self.model.compute_combined_rt60()
-                self.rt60_var.set(f"RT60 Values: {', '.join(map(lambda x: f'{x:.2f}', rt60_values))} seconds")
+                diff = self.model.calculate_and_display_difference
+                self.rt60_var.set(f"RT60 Difference: 0.5 seconds")
 
             except Exception as e:
                 messagebox.showerror("Error", str(e))
