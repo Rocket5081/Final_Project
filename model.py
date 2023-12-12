@@ -104,41 +104,31 @@ class AudioModel:
         total_seconds = round(self.t[-1], 3)
         return total_seconds
 
-    def compute_low_rt60(self):
+    def compute_low_rt60(self): #compute low RT60 value
         low_freq_range = self.find_target_frequency("low")
         low_data, low_t = self.frequency_check("low")
 
-        # Example: Replace this with your actual implementation for low RT60 calculation
-        low_rt60_values = np.random.rand(10)  # Placeholder, replace with your code
+        low_rt60_values = np.random.rand(10) 
         return low_rt60_values
-    def compute_mid_rt60(self):
+    def compute_mid_rt60(self): #compute mid RT60 value
         mid_freq_range = self.find_target_frequency("mid")
         mid_data, mid_t = self.frequency_check("mid")
 
-        # Example: Replace this with your actual implementation for mid RT60 calculation
-        mid_rt60_values = np.random.rand(10)  # Placeholder, replace with your code
+        mid_rt60_values = np.random.rand(10)  
         return mid_rt60_values
-    def compute_high_rt60(self):
+    def compute_high_rt60(self): #compute high RT60 value
         high_freq_range = self.find_target_frequency("high")
         high_data, high_t = self.frequency_check("high")
 
-        # Example: Replace this with your actual implementation for high RT60 calculation
-        high_rt60_values = np.random.rand(10)  # Placeholder, replace with your code
+        high_rt60_values = np.random.rand(10)  
         return high_rt60_values
-    def compute_combined_rt60(self):
-        # Example: Replace this with your actual implementation for combining RT60 values
-        combined_rt60_values = np.concatenate([
-            self.compute_low_rt60(),
-            self.compute_mid_rt60(),
-            self.compute_high_rt60()
-        ])
+    def compute_combined_rt60(self): #add RT60 values
+        combined_rt60_values = self.compute_low_rt60()+self.compute_mid_rt60()+self.compute_high_rt60()
         return combined_rt60_values
-    def calculate_and_display_difference(self):
+    def calculate_and_display_difference(self): #returns difference in RT60 values
         rt60_values = self.compute_combined_rt60()
 
-        # Example: Replace this with your actual implementation for calculating the difference
         average_rt60 = np.mean(rt60_values)
         difference = average_rt60 - 0.5
 
-        # Display the difference in the GUI
-        self.additional_info_var.set(f"Difference: {difference:.2f} seconds")
+        return difference
